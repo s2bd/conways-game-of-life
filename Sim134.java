@@ -14,7 +14,7 @@ public class Sim134
 {
     // Global variables
     private int[][] current;    // array of current cell states
-    private Cell[][] previous;   // array of previous cell states
+    private int[][] previous;   // array of previous cell states
     private int dimensions;     // height and width of the visual grid
     private int zoom = 10;      // the magnification scale of the display
     private int iterations;     // limit for the maximum iterations in a simulation
@@ -80,11 +80,11 @@ public class Sim134
 
     private void pulse(){
         randomize();
-        System.out.println("Cells randomized.");
         update();
-        System.out.println("Display updated.");
+        iterations-=1;
         show();
-        System.out.println("Display shown.");
+        System.out.println("Iterations remaining: "+iterations);
+        if(iterations<=0){timer.stop();};
     }
 
     private void show(){
