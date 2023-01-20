@@ -18,8 +18,8 @@ public class Sim134
     private int dimensions;     // height and width of the visual grid
     private int zoom = 10;      // the magnification scale of the display
     private int iterations;     // limit for the maximum iterations in a simulation
-    private Timer timer;
     private Picture display;
+    private Timer timer;
 
     /**
      * Launcher for the simulator
@@ -36,42 +36,55 @@ public class Sim134
             System.exit(-1);
         }
         // Confirming input
-        System.out.println("You have entered:\nIterations: "+args[0]+"\nType: "+args[1]+"\n");
+        System.out.println("You have entered:\nIterations: "+args[0]+"\nType: "+args[1]);
         // Generating the simulator
-        Sim134 simulator = new Sim134(Integer.parseInt(args[0]));
-        // Initializing the simulator
-        simulator.update();
-        if(args[1].toLowerCase().equals("r")){
-            // Random
-            simulator.randomize();
-            simulator.update();
-            simulator.show();}
-        // } else if(args[1].toLowerCase().equals("j")){
-        // // Oscillator Jam
-
-        // simulator.show();
-        // } else if(args[1].toLowerCase().equals("d")){
-        // // Dart Glider
-
-        // simulator.show();
-        // } else {
-        // // Exceptions
-        // System.out.println("Sorry, you can only choose between R for Random, J for Jam or D for Dart as the simulation types. Please try again.");
-        // System.exit(-1);
-        // }
+        Sim134 simulator = new Sim134(Integer.parseInt(args[0]),args[1]);
+        System.out.println("Simulator generated!");
     }
 
     /**
      * Constructor for the simulator
      */
-    public Sim134(int m)
+    public Sim134(int m, String type)
     {
         // Instance variables
         this.iterations = m; // maximum iterations, user-defined
         System.out.println("Max iterations: "+m);
         // Initializing the grid with dead cells by default
         current = new int[80][80];
+        System.out.println("Cells generated.");
         display = new Picture(80 * zoom, 80 * zoom);
+        System.out.println("Display ready.");
+        // Initializing the simulator
+        update();
+        System.out.println("Cells initialized.");
+        // CHOOSING INITIAL CONDITION TYPES
+        if(type.toLowerCase().equals("r")){
+            show();
+            System.out.println("Display shown.");
+            timer = new Timer(100, tick -> pulse());
+            timer.start();
+            // } else if(args[1].toLowerCase().equals("j")){
+            // // Oscillator Jam
+
+            // simulator.show();
+            // } else if(args[1].toLowerCase().equals("d")){
+            // // Dart Glider
+
+        } else {
+            // Exceptions
+            System.out.println("Sorry, you can only choose between R for Random, J for Jam or D for Dart as the simulation types. Please try again.");
+            System.exit(-1);
+        }
+    }
+
+    private void pulse(){
+        randomize();
+        System.out.println("Cells randomized.");
+        update();
+        System.out.println("Display updated.");
+        show();
+        System.out.println("Display shown.");
     }
 
     private void show(){
