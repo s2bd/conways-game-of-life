@@ -16,4 +16,5 @@ public class Cell
 
     public void die(){this.alive = false;}
     public void live(){this.alive = true;}
+    public boolean isAlive(){return this.alive;}
 }
