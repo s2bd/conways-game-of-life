@@ -69,6 +69,7 @@ public class Sim134
             // Oscillator Jam
             show();
             System.out.println("Display shown.");
+            // Oscillator pattern
             current[14][13] = 1;
             current[14][14] = 1;
             current[14][15] = 1;
@@ -88,6 +89,41 @@ public class Sim134
             // // Dart Glider
             show();
             System.out.println("Display shown.");
+            // Glider pattern
+            current[16][34] = 1;
+            current[17][35] = 1;
+            current[17][33] = 1;
+            current[18][33] = 1;
+            current[18][32] = 1;
+            current[19][35] = 1;
+            current[20][35] = 1;
+            current[22][35] = 1;
+            current[22][34] = 1;
+            current[22][33] = 1;
+            current[22][32] = 1;
+            current[21][31] = 1;
+            current[20][31] = 1;
+            current[22][29] = 1;
+            current[23][29] = 1;
+            current[24][29] = 1;
+            current[21][28] = 1;
+            current[22][27] = 1;
+            current[23][26] = 1;
+            current[24][27] = 1;
+            current[25][28] = 1;
+            current[25][31] = 1;
+            current[24][32] = 1;
+            current[24][33] = 1;
+            current[24][34] = 1;
+            current[24][35] = 1;
+            current[26][31] = 1;
+            current[26][35] = 1;
+            current[27][35] = 1;
+            current[29][35] = 1;
+            current[30][34] = 1;
+            current[29][33] = 1;
+            current[28][33] = 1;
+            current[28][32] = 1;
             timer = new Timer(100, tick -> pulse());
             timer.start();
         } else {
