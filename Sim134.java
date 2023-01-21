@@ -168,16 +168,22 @@ public class Sim134
             for (int y = 0; y < 80; y++)
             {
                 previous[x][y] = current[x][y]; // storing previous state of cell
+            }
+        }
+        for (int x = 0; x < 80; x++)
+        {
+            for (int y = 0; y < 80; y++)
+            {
                 int alives = 0;
                 // A very crude way to detect number of alive neighboring cells
-                if((previous[wrapcoord(x-1)][wrapcoord(y-1)] == 1)){alives+=1;}
-                if((previous[wrapcoord(x-1)][wrapcoord(y)] == 1)){alives+=1;}
-                if((previous[wrapcoord(x-1)][wrapcoord(y+1)] == 1)){alives+=1;}
-                if((previous[wrapcoord(x)][wrapcoord(y-1)] == 1)){alives+=1;}
-                if((previous[wrapcoord(x)][wrapcoord(y+1)] == 1)){alives+=1;}
-                if((previous[wrapcoord(x+1)][wrapcoord(y-1)] == 1)){alives+=1;}
-                if((previous[wrapcoord(x+1)][wrapcoord(y)] == 1)){alives+=1;}
-                if((previous[wrapcoord(x+1)][wrapcoord(y+1)] == 1)){alives+=1;}
+                if((current[wrapcoord(x-1)][wrapcoord(y-1)] == 1)){alives+=1;}
+                if((current[wrapcoord(x-1)][wrapcoord(y)] == 1)){alives+=1;}
+                if((current[wrapcoord(x-1)][wrapcoord(y+1)] == 1)){alives+=1;}
+                if((current[wrapcoord(x)][wrapcoord(y-1)] == 1)){alives+=1;}
+                if((current[wrapcoord(x)][wrapcoord(y+1)] == 1)){alives+=1;}
+                if((current[wrapcoord(x+1)][wrapcoord(y-1)] == 1)){alives+=1;}
+                if((current[wrapcoord(x+1)][wrapcoord(y)] == 1)){alives+=1;}
+                if((current[wrapcoord(x+1)][wrapcoord(y+1)] == 1)){alives+=1;}
                 // based on the number of alive cells, the individual cell's fate is decided
                 if(alives>=4 || alives==1 || alives==0){
                     current[x][y] = 0; // the cell dies
