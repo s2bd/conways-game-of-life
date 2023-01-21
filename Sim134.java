@@ -129,7 +129,7 @@ public class Sim134
             current[29][33] = 1;
             current[28][33] = 1;
             current[28][32] = 1;
-            timer = new Timer(100, tick -> pulse());
+            timer = new Timer(300, tick -> pulse());
             timer.start();
         } else {
             // Exceptions
@@ -169,23 +169,23 @@ public class Sim134
             {
                 previous[x][y] = current[x][y]; // storing previous state of cell
                 int alives = 0;
-                // // A very crude way to detect number of alive neighboring cells
-                // if((previous[wrapcoord(x-1)][wrapcoord(y-1)] == 1)){alives+=1;}
-                // if((previous[wrapcoord(x-1)][wrapcoord(y)] == 1)){alives+=1;}
-                // if((previous[wrapcoord(x-1)][wrapcoord(y+1)] == 1)){alives+=1;}
-                // if((previous[wrapcoord(x)][wrapcoord(y-1)] == 1)){alives+=1;}
-                // if((previous[wrapcoord(x)][wrapcoord(y+1)] == 1)){alives+=1;}
-                // if((previous[wrapcoord(x+1)][wrapcoord(y-1)] == 1)){alives+=1;}
-                // if((previous[wrapcoord(x+1)][wrapcoord(y)] == 1)){alives+=0;}
-                // if((previous[wrapcoord(x+1)][wrapcoord(y+1)] == 1)){alives+=0;}
-                // // based on the number of alive cells, the individual cell's fate is decided
-                // if(alives>=4){
-                    // current[x][y] = 0; // the cell dies
-                // } else if(alives==3){
-                    // current[x][y] = 1; // a new cell is born
-                // } else {
-                    // current[x][y] = 1; // the cell survives
-                // }
+                // A very crude way to detect number of alive neighboring cells
+                if((previous[wrapcoord(x-1)][wrapcoord(y-1)] == 1)){alives+=1;}
+                if((previous[wrapcoord(x-1)][wrapcoord(y)] == 1)){alives+=1;}
+                if((previous[wrapcoord(x-1)][wrapcoord(y+1)] == 1)){alives+=1;}
+                if((previous[wrapcoord(x)][wrapcoord(y-1)] == 1)){alives+=1;}
+                if((previous[wrapcoord(x)][wrapcoord(y+1)] == 1)){alives+=1;}
+                if((previous[wrapcoord(x+1)][wrapcoord(y-1)] == 1)){alives+=1;}
+                if((previous[wrapcoord(x+1)][wrapcoord(y)] == 1)){alives+=1;}
+                if((previous[wrapcoord(x+1)][wrapcoord(y+1)] == 1)){alives+=1;}
+                // based on the number of alive cells, the individual cell's fate is decided
+                if(alives>=4 || alives==1 || alives==0){
+                    current[x][y] = 0; // the cell dies
+                } else if(alives==3 || alives==2){
+                    current[x][y] = 1; // a new cell is born
+                } else {
+                    current[x][y] = 1; // the cell survives
+                }
                 drawCell(x,y);
             }
         }
@@ -193,11 +193,11 @@ public class Sim134
 
     private int wrapcoord(int coord){
         // trying to wrap the 2D grid around like a 3D torus
-        if(coord < 0 || coord-1 < 0){
+        if(coord < 0){
             coord = 79;
             return coord;
         }
-        else if(coord > 79 || coord+1 > 79){
+        else if(coord > 79){
             coord = 0;
             return coord;
         }
