@@ -7,6 +7,7 @@ import java.awt.Color;
  * A simulation of Conway's Game Of Life
  *
  * @author Dewan Mukto (dmimukto)
+ * @student_id 202004321
  * @version 2023 Jan 20
  * @attribution Mark Hatcher (mhatcher)
  */
@@ -34,6 +35,9 @@ public class Sim134
         if(args.length<=1 || args.length>2){
             System.out.println("Wrong number of inputs. Please use this syntax:\n java Sim134 [ITERATIONS] [TYPE]");
             System.exit(-1);
+        } else if(!(Integer.parseInt(args[0])>=0)){
+            System.out.println("Number of iterations must be >= 0!");
+            System.exit(-1);
         }
         // Confirming input
         System.out.println("You have entered:\nMax Iterations: "+args[0]+"\nType: "+args[1]);
@@ -51,11 +55,12 @@ public class Sim134
         this.iterations = m; // maximum iterations, user-defined
         // Initializing the grid with dead cells by default
         current = new int[80][80];
+        previous = new int[80][80];
         System.out.println("Cells generated.");
         display = new Picture(80 * zoom, 80 * zoom);
         System.out.println("Display ready.");
         // Initializing the simulator
-        update();
+        initialize();
         System.out.println("Cells initialized.");
         // CHOOSING INITIAL CONDITION TYPES
         if(type.toLowerCase().equals("r")){
@@ -145,7 +150,7 @@ public class Sim134
         display.show();
     }
 
-    private void update(){
+    private void initialize(){
         for (int i = 0; i < 80; i++)
         {
             for (int j = 0; j < 80; j++)
@@ -153,6 +158,50 @@ public class Sim134
                 drawCell(i,j);
             }
         }
+    }
+
+    // Applying John Conway's Game of Life rules
+    // (http://ddi.cs.uni-potsdam.de/HyFISCH/Produzieren/lis_projekt/proj_gamelife/ConwayScientificAmerican.htm)
+    private void update(){
+        for (int x = 0; x < 80; x++)
+        {
+            for (int y = 0; y < 80; y++)
+            {
+                previous[x][y] = current[x][y]; // storing previous state of cell
+                int alives = 0;
+                // A very crude way to detect number of alive neighboring cells
+                if((previous[wrapcoord(x-1)][wrapcoord(y-1)] == 1)){alives+=1;}
+                if((previous[wrapcoord(x-1)][wrapcoord(y)] == 1)){alives+=1;}
+                if((previous[wrapcoord(x-1)][wrapcoord(y+1)] == 1)){alives+=1;}
+                if((previous[wrapcoord(x)][wrapcoord(y-1)] == 1)){alives+=1;}
+                if((previous[wrapcoord(x)][wrapcoord(y+1)] == 1)){alives+=1;}
+                if((previous[wrapcoord(x+1)][wrapcoord(y-1)] == 1)){alives+=1;}
+                if((previous[wrapcoord(x+1)][wrapcoord(y)] == 1)){alives+=0;}
+                if((previous[wrapcoord(x+1)][wrapcoord(y+1)] == 1)){alives+=0;}
+                // based on the number of alive cells, the individual cell's fate is decided
+                if(alives>=4){
+                    current[x][y] = 0; // the cell dies
+                } else if(alives==3){
+                    current[x][y] = 1; // a new cell is born
+                } else {
+                    current[x][y] = 1; // the cell survives
+                }
+                drawCell(x,y);
+            }
+        }
+    }
+
+    private int wrapcoord(int coord){
+        // trying to wrap the 2D grid around like a 3D torus
+        if(coord < 0 || coord-1 < 0){
+            coord = 79;
+            return coord;
+        }
+        else if(coord > 79 || coord+1 > 79){
+            coord = 0;
+            return coord;
+        }
+        else {return coord;}
     }
 
     private void randomize(){
