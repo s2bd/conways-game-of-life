@@ -88,7 +88,7 @@ public class Sim134
             current[18][11] = 1;
             current[19][12] = 1;
             current[19][13] = 1;
-            timer = new Timer(100, tick -> pulse());
+            timer = new Timer(700, tick -> pulse());
             timer.start();
         } else if(type.toLowerCase().equals("d")){
             // // Dart Glider
@@ -129,7 +129,7 @@ public class Sim134
             current[29][33] = 1;
             current[28][33] = 1;
             current[28][32] = 1;
-            timer = new Timer(300, tick -> pulse());
+            timer = new Timer(500, tick -> pulse());
             timer.start();
         } else {
             // Exceptions
@@ -187,10 +187,10 @@ public class Sim134
                 // based on the number of alive cells, the individual cell's fate is decided
                 if(alives>=4 || alives==1 || alives==0){
                     current[x][y] = 0; // the cell dies
-                } else if(alives==3 || alives==2){
+                } else if(alives==3){
                     current[x][y] = 1; // a new cell is born
-                } else {
-                    current[x][y] = 1; // the cell survives
+                // } else {
+                    // current[x][y] = 1; // the cell survives
                 }
                 drawCell(x,y);
             }
