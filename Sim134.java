@@ -36,7 +36,7 @@ public class Sim134
             System.exit(-1);
         }
         // Confirming input
-        System.out.println("You have entered:\nIterations: "+args[0]+"\nType: "+args[1]);
+        System.out.println("You have entered:\nMax Iterations: "+args[0]+"\nType: "+args[1]);
         // Generating the simulator
         Sim134 simulator = new Sim134(Integer.parseInt(args[0]),args[1]);
         System.out.println("Simulator generated!");
@@ -49,7 +49,6 @@ public class Sim134
     {
         // Instance variables
         this.iterations = m; // maximum iterations, user-defined
-        System.out.println("Max iterations: "+m);
         // Initializing the grid with dead cells by default
         current = new int[80][80];
         System.out.println("Cells generated.");
@@ -60,17 +59,37 @@ public class Sim134
         System.out.println("Cells initialized.");
         // CHOOSING INITIAL CONDITION TYPES
         if(type.toLowerCase().equals("r")){
+            // Random
+            show();
+            System.out.println("Display shown.");
+            randomize();
+            timer = new Timer(100, tick -> pulse());
+            timer.start();
+        } else if(type.toLowerCase().equals("j")){
+            // Oscillator Jam
+            show();
+            System.out.println("Display shown.");
+            current[14][13] = 1;
+            current[14][14] = 1;
+            current[14][15] = 1;
+            current[16][12] = 1;
+            current[17][13] = 1;
+            current[18][14] = 1;
+            current[15][17] = 1;
+            current[16][17] = 1;
+            current[17][16] = 1;
+            current[17][11] = 1;
+            current[18][11] = 1;
+            current[19][12] = 1;
+            current[19][13] = 1;
+            timer = new Timer(100, tick -> pulse());
+            timer.start();
+        } else if(type.toLowerCase().equals("d")){
+            // // Dart Glider
             show();
             System.out.println("Display shown.");
             timer = new Timer(100, tick -> pulse());
             timer.start();
-            // } else if(args[1].toLowerCase().equals("j")){
-            // // Oscillator Jam
-
-            // simulator.show();
-            // } else if(args[1].toLowerCase().equals("d")){
-            // // Dart Glider
-
         } else {
             // Exceptions
             System.out.println("Sorry, you can only choose between R for Random, J for Jam or D for Dart as the simulation types. Please try again.");
@@ -79,7 +98,6 @@ public class Sim134
     }
 
     private void pulse(){
-        randomize();
         update();
         iterations-=1;
         show();

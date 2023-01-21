@@ -31,7 +31,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
-
 /**
  *  This class provides methods for manipulating individual pixels of
  *  an image using the RGB color format. The alpha component (for transparency)
@@ -84,9 +83,9 @@ public final class Picture implements ActionListener {
     private boolean isOriginUpperLeft = true;  // location of origin
     private final int width, height;           // width and height
 
-   /**
+    /**
      * Creates a {@code width}-by-{@code height} picture, with {@code width} columns
-     * and {@code height} rows, where each pixel is black.
+     * and {@code height} rows, wif(iterations<=0){timer.stop();};if(iterations<=0){timer.stop();};here each pixel is black.
      *
      * @param width the width of the picture
      * @param height the height of the picture
@@ -102,7 +101,7 @@ public final class Picture implements ActionListener {
         // set to TYPE_INT_ARGB here and in next constructor to support transparency
     }
 
-   /**
+    /**
      * Creates a new picture that is a deep copy of the argument picture.
      *
      * @param  picture the picture to copy
@@ -121,7 +120,7 @@ public final class Picture implements ActionListener {
                 image.setRGB(col, row, picture.image.getRGB(col, row));
     }
 
-   /**
+    /**
      * Creates a picture by reading an image from a file or URL.
      *
      * @param  name the name of the file (.png, .gif, or .jpg) or URL.
@@ -169,7 +168,7 @@ public final class Picture implements ActionListener {
         }
     }
 
-   /**
+    /**
      * Creates a picture by reading the image from a PNG, GIF, or JPEG file.
      *
      * @param file the file
@@ -193,7 +192,7 @@ public final class Picture implements ActionListener {
         filename = file.getName();
     }
 
-   /**
+    /**
      * Returns a {@link JLabel} containing this picture, for embedding in a {@link JPanel},
      * {@link JFrame} or other GUI widget.
      *
@@ -205,21 +204,21 @@ public final class Picture implements ActionListener {
         return new JLabel(icon);
     }
 
-   /**
+    /**
      * Sets the origin to be the upper left pixel. This is the default.
      */
     public void setOriginUpperLeft() {
         isOriginUpperLeft = true;
     }
 
-   /**
+    /**
      * Sets the origin to be the lower left pixel.
      */
     public void setOriginLowerLeft() {
         isOriginUpperLeft = false;
     }
 
-   /**
+    /**
      * Displays the picture in a window on the screen.
      */
     public void show() {
@@ -235,11 +234,9 @@ public final class Picture implements ActionListener {
             menuItem1.addActionListener(this);
             // use getMenuShortcutKeyMaskEx() in Java 10 (getMenuShortcutKeyMask() deprecated)           
             menuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-                                     Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+                    Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
             menu.add(menuItem1);
             frame.setJMenuBar(menuBar);
-
-
 
             frame.setContentPane(getJLabel());
             // f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -255,7 +252,7 @@ public final class Picture implements ActionListener {
         frame.repaint();
     }
 
-   /**
+    /**
      * Returns the height of the picture.
      *
      * @return the height of the picture (in pixels)
@@ -264,7 +261,7 @@ public final class Picture implements ActionListener {
         return height;
     }
 
-   /**
+    /**
      * Returns the width of the picture.
      *
      * @return the width of the picture (in pixels)
@@ -283,7 +280,7 @@ public final class Picture implements ActionListener {
             throw new IllegalArgumentException("column index must be between 0 and " + (width() - 1) + ": " + col);
     }
 
-   /**
+    /**
      * Returns the color of pixel ({@code col}, {@code row}) as a {@link java.awt.Color}.
      *
      * @param col the column index
@@ -298,7 +295,7 @@ public final class Picture implements ActionListener {
         return new Color(rgb);
     }
 
-   /**
+    /**
      * Returns the color of pixel ({@code col}, {@code row}) as an {@code int}.
      * Using this method can be more efficient than {@link #get(int, int)} because
      * it does not create a {@code Color} object.
@@ -315,7 +312,7 @@ public final class Picture implements ActionListener {
         else                   return image.getRGB(col, height - row - 1);
     }
 
-   /**
+    /**
      * Sets the color of pixel ({@code col}, {@code row}) to given color.
      *
      * @param col the column index
@@ -332,7 +329,7 @@ public final class Picture implements ActionListener {
         setRGB(col, row, rgb);
     }
 
-   /**
+    /**
      * Sets the color of pixel ({@code col}, {@code row}) to given color.
      *
      * @param col the column index
@@ -347,7 +344,7 @@ public final class Picture implements ActionListener {
         else                   image.setRGB(col, height - row - 1, rgb);
     }
 
-   /**
+    /**
      * Returns true if this picture is equal to the argument picture.
      *
      * @param other the other picture
@@ -367,7 +364,7 @@ public final class Picture implements ActionListener {
         return true;
     }
 
-   /**
+    /**
      * Returns a string representation of this picture.
      * The result is a <code>width</code>-by-<code>height</code> matrix of pixels,
      * where the color of a pixel is represented using 6 hex digits to encode
@@ -400,7 +397,7 @@ public final class Picture implements ActionListener {
         throw new UnsupportedOperationException("hashCode() is not supported because pictures are mutable");
     }
 
-   /**
+    /**
      * Saves the picture to a file in either PNG or JPEG format.
      * The filetype extension must be either .png or .jpg.
      *
@@ -413,7 +410,7 @@ public final class Picture implements ActionListener {
         filename = name;
     }
 
-   /**
+    /**
      * Saves the picture to a file in a PNG or JPEG image format.
      *
      * @param  file the file
@@ -437,20 +434,20 @@ public final class Picture implements ActionListener {
         }
     }
 
-   /**
+    /**
      * Opens a save dialog box when the user selects "Save As" from the menu.
      */
     @Override
     public void actionPerformed(ActionEvent e) {
         FileDialog chooser = new FileDialog(frame,
-                             "Use a .png or .jpg extension", FileDialog.SAVE);
+                "Use a .png or .jpg extension", FileDialog.SAVE);
         chooser.setVisible(true);
         if (chooser.getFile() != null) {
             save(chooser.getDirectory() + File.separator + chooser.getFile());
         }
     }
 
-   /**
+    /**
      * Unit tests this {@code Picture} data type.
      * Reads a picture specified by the command-line argument,
      * and shows it in a window on the screen.
