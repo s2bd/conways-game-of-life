@@ -215,6 +215,7 @@ public class Sim134
         {
             for (int j = 0; j < 80; j++)
             {
+                // Randomly assigning alive or dead values to cells with 50-50 probability
                 current[i][j] = (Math.random() >= 0.5) ? 1 : 0;
             }
         }
@@ -223,8 +224,8 @@ public class Sim134
     /**
      * Draws an invidual cell in a visual grid
      * 
-     * @param cellX position of cell in the grid
-     * @param cellY position of cell in the grid
+     * @param cellX x-position of cell in the grid
+     * @param cellY y-position of cell in the grid
      */
     private void drawCell(int cellX, int cellY)
     {
