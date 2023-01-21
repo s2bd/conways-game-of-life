@@ -133,7 +133,7 @@ public class Sim134
             timer.start();
         } else {
             // Exceptions
-            System.out.println("Sorry, you can only choose between R for Random, J for Jam or D for Dart as the simulation types. Please try again.");
+            System.out.println("Sorry, you can only choose between\n R for Random,\n J for oscillator Jam or\n D for glider Dart as the simulation types. Please try again.");
             System.exit(-1);
         }
     }
@@ -169,23 +169,23 @@ public class Sim134
             {
                 previous[x][y] = current[x][y]; // storing previous state of cell
                 int alives = 0;
-                // A very crude way to detect number of alive neighboring cells
-                if((previous[wrapcoord(x-1)][wrapcoord(y-1)] == 1)){alives+=1;}
-                if((previous[wrapcoord(x-1)][wrapcoord(y)] == 1)){alives+=1;}
-                if((previous[wrapcoord(x-1)][wrapcoord(y+1)] == 1)){alives+=1;}
-                if((previous[wrapcoord(x)][wrapcoord(y-1)] == 1)){alives+=1;}
-                if((previous[wrapcoord(x)][wrapcoord(y+1)] == 1)){alives+=1;}
-                if((previous[wrapcoord(x+1)][wrapcoord(y-1)] == 1)){alives+=1;}
-                if((previous[wrapcoord(x+1)][wrapcoord(y)] == 1)){alives+=0;}
-                if((previous[wrapcoord(x+1)][wrapcoord(y+1)] == 1)){alives+=0;}
-                // based on the number of alive cells, the individual cell's fate is decided
-                if(alives>=4){
-                    current[x][y] = 0; // the cell dies
-                } else if(alives==3){
-                    current[x][y] = 1; // a new cell is born
-                } else {
-                    current[x][y] = 1; // the cell survives
-                }
+                // // A very crude way to detect number of alive neighboring cells
+                // if((previous[wrapcoord(x-1)][wrapcoord(y-1)] == 1)){alives+=1;}
+                // if((previous[wrapcoord(x-1)][wrapcoord(y)] == 1)){alives+=1;}
+                // if((previous[wrapcoord(x-1)][wrapcoord(y+1)] == 1)){alives+=1;}
+                // if((previous[wrapcoord(x)][wrapcoord(y-1)] == 1)){alives+=1;}
+                // if((previous[wrapcoord(x)][wrapcoord(y+1)] == 1)){alives+=1;}
+                // if((previous[wrapcoord(x+1)][wrapcoord(y-1)] == 1)){alives+=1;}
+                // if((previous[wrapcoord(x+1)][wrapcoord(y)] == 1)){alives+=0;}
+                // if((previous[wrapcoord(x+1)][wrapcoord(y+1)] == 1)){alives+=0;}
+                // // based on the number of alive cells, the individual cell's fate is decided
+                // if(alives>=4){
+                    // current[x][y] = 0; // the cell dies
+                // } else if(alives==3){
+                    // current[x][y] = 1; // a new cell is born
+                // } else {
+                    // current[x][y] = 1; // the cell survives
+                // }
                 drawCell(x,y);
             }
         }
